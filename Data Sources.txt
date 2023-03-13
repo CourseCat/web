@@ -1,0 +1,15 @@
+Data Sources:
+
+We are aiming to obtain course data from the following universities from two states: Boston and California.
+
+California:
+UC Berkeley
+Stanford
+UCLA
+De Anza/Foothill Community College
+
+Boston:
+Tufts
+MIT
+Boston University
+One additional Community College is being determined currently. 
