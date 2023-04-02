@@ -3,13 +3,12 @@ Data Sources:
 We are aiming to obtain course data from the following universities from two states: Boston and California.
 
 California:
-UC Berkeley
-Stanford
-UCLA
-De Anza/Foothill Community College
+UC Berkeley: 4/2 - Kunal scraped the courses and relevant information and has uploaded to Git. Next step will be putting this data in Mongo DB. 
+Stanford - Thomas
+UCLA - Thomas
+Foothill Community College: 4/2 - Kunal scraped the courses and relevant information and has uploaded to Git. Next step will be putting this data in Mongo DB. 
 
 Boston:
-Tufts
-MIT
-Boston University
-One additional Community College is being determined currently. 
+Tufts - Thomas
+MIT - Sean/Thomas
+Boston University - Sean
