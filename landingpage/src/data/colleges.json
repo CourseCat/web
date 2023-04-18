@@ -1,0 +1,116 @@
+{
+  "data": [
+    {
+      "name": "UC Berkeley",
+      "address": "Berkeley, CA",
+      "subjects": [
+        "Biology",
+        "Business",
+        "Computer Science",
+        "Economics",
+        "English",
+        "Electrical Engineering",
+        "Political Science",
+        "Psychology"
+      ],
+      "website": "https://www.berkeley.edu/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Seal_of_University_of_California%2C_Berkeley.svg/1200px-Seal_of_University_of_California%2C_Berkeley.svg.png"
+    },
+    {
+      "name": "Northeastern University",
+      "address": "Boston, MA",
+      "subjects": [
+        "Biology",
+        "Business",
+        "Computer Science",
+        "Economics",
+        "English",
+        "Electrical Engineering",
+        "Political Science",
+        "Psychology"
+      ],
+      "website": "https://www.northeastern.edu/",
+      "image": "https://1000logos.net/wp-content/uploads/2022/07/Northeastern-University-Logo.png"
+    },
+    {
+      "name": "Foothill College",
+      "address": "Los Altos Hills, CA",
+      "subjects": [
+        "Biology",
+        "Business",
+        "Computer Science",
+        "Economics",
+        "English",
+        "Electrical Engineering",
+        "Political Science",
+        "Psychology"
+      ],
+      "website": "https://foothill.edu/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Foothill_College_logo.svg/960px-Foothill_College_logo.svg.png"
+    },
+    {
+      "name": "Tufts University",
+      "address": "Medford, MA",
+      "subjects": [
+        "Biology",
+        "Business",
+        "Computer Science",
+        "Economics",
+        "English",
+        "Electrical Engineering",
+        "Political Science",
+        "Psychology"
+      ],
+      "website": "https://www.tufts.edu/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Tufts_University_logo.png"
+    },
+    {
+      "name": "University of Virginia",
+      "address": "Charlottesville, VA",
+      "subjects": [
+        "Biology",
+        "Business",
+        "Computer Science",
+        "Economics",
+        "English",
+        "Electrical Engineering",
+        "Political Science",
+        "Psychology"
+      ],
+      "website": "https://www.virginia.edu/",
+      "image": "https://logos-world.net/wp-content/uploads/2021/11/UVA-Logo.png"
+    },
+    {
+      "name": "John Hopkins University",
+      "address": "Baltimore, MD",
+      "subjects": [
+        "Biology",
+        "Business",
+        "Computer Science",
+        "Economics",
+        "English",
+        "Electrical Engineering",
+        "Political Science",
+        "Psychology"
+      ],
+      "website": "https://www.jhu.edu/",
+      "image": "https://www.drupal.org/files/university_logo_small_vertical_blue.png"
+    },
+    {
+      "name": "MIT",
+      "address": "Cambridge, MA",
+      "subjects": [
+        "Biology",
+        "Business",
+        "Computer Science",
+        "Economics",
+        "English",
+        "Electrical Engineering",
+        "Political Science",
+        "Psychology"
+      ],
+      "website": "https://www.mit.edu/",
+      "image": "https://1000logos.net/wp-content/uploads/2022/08/MIT-Logo.png"
+    }
+  ]
+}

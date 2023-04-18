@@ -1,0 +1,63 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home h1 {
+    font-size: 2.7rem;
+    margin-bottom: 20px;
+}
+
+.home>img {
+    width: 16em;
+    margin-top: 5em;
+}
+
+.searchWrap {
+    border-radius: 14px;
+    border: 2px solid #d04444;
+    width: 50%;
+    display: flex;
+    margin-bottom: 40px;
+    overflow: hidden;
+    padding-right: 17px;
+}
+
+.home input {
+    padding: 10px 17px;
+    width: 100%;
+    border: none;
+    font-size: 1.1rem;
+}
+
+input:focus {
+    outline: none;
+}
+
+.colleges {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 50%;
+    margin-bottom: 60px;
+}
+
+.colleges .collegeCard {
+    display: flex;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px 20px;
+    border-radius: 14px;
+    gap: 23px;
+}
+
+.collegeCard > div{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.collegeCard img {
+    width: 5em;
+    object-fit: contain;
+}
