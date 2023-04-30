@@ -51,6 +51,7 @@ export async function getCourseById(courseId) {
       `https://course-cat.herokuapp.com/courses/${courseId}`
     );
     const data = response.data;
+
     if (data && data.course) return data.course;
   } catch (error) {
     console.error("Error fetching course data:", error);

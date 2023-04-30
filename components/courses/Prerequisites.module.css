@@ -1,0 +1,21 @@
+.node__root,
+.node__branch,
+.node__leaf {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+  border-radius: 4px;
+}
+
+.node__root {
+  background-color: red;
+}
+
+.node__branch {
+  background-color: yellow;
+}
+
+.node__leaf {
+  background-color: green;
+}
