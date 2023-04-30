@@ -1,7 +1,8 @@
 .searchContainer {
+  min-width: 10rem;
+  width: 100%;
   border-radius: 18px;
   border: 2px solid #d04444;
-  width: 50em;
   display: flex;
   overflow: hidden;
   padding-right: 17px;

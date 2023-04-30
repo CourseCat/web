@@ -1,9 +1,10 @@
+import { Box } from "@mui/material";
 import Image from "next/image";
 import styles from "./Search.module.css";
 
 function Search({ query, mode, onChange }) {
   return (
-    <div className={styles.searchContainer}>
+    <Box className={styles.searchContainer}>
       <input
         type="text"
         placeholder={`Search for ${mode}..`}
@@ -17,7 +18,7 @@ function Search({ query, mode, onChange }) {
         width={25}
         height={25}
       />
-    </div>
+    </Box>
   );
 }
 

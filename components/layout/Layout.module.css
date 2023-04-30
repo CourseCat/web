@@ -2,5 +2,5 @@
   margin: 3rem auto;
   width: 90%;
   max-width: 1080px;
-  min-height: "calc(100vh - 64px - 56px)";
+  min-height: max(calc(100vh - 250px), 800px);
 }
