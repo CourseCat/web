@@ -1,10 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./CollegeCard.module.css";
 
 const CollegeCard = ({ elem }) => {
   return (
-    <a href={`/schools/${elem._id}`} className={styles.collegeCard}>
-      <img src={elem.logoUrl} alt={elem.name} />
+    <a href={`/schools/${elem._id}`} className={styles.cardContainer}>
+      <Image src={elem.logoUrl} alt={elem.name} width={125} height={200} />
       <div>
         <h3>{elem.name}</h3>
         <h4>{elem.address}</h4>

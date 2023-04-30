@@ -1,5 +1,5 @@
-function getSchool(id) {
-  return fetch(`https://course-cat.herokuapp.com/schools/${id}`)
+function getSchool(schoolId) {
+  return fetch(`https://course-cat.herokuapp.com/schools/${schoolId}`)
     .then((response) => {
       return response.json();
     })

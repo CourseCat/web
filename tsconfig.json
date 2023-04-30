@@ -18,6 +18,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/exportPDF.js", "pages/index.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/exportPDF.js", "pages/index.js", "pages/api/colleges.js", "pages/api/courses.js", "pages/api/courseWithSubject.js", "pages/api/hello.tsx", "pages/api/school.js", "pages/api/subjects.js"],
   "exclude": ["node_modules"]
 }

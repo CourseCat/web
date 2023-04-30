@@ -1,0 +1,91 @@
+.cardContainer {
+  display: flex;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px 20px;
+  border-radius: 14px;
+  gap: 23px;
+  text-decoration: none;
+  color: black;
+}
+
+.cardContainer .subject {
+  color: #d04444;
+}
+
+.cardContainer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardContainer > div > a {
+  text-decoration: none;
+  margin-top: 3px;
+}
+
+.cardContainer > div > a:hover {
+  text-decoration: underline;
+}
+
+.cardContainer img {
+  width: 8em;
+  object-fit: contain;
+  min-width: 8em;
+}
+
+.cardContainer .subjects {
+  margin-top: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+.cardContainer .subjects a {
+  background-color: #d04444;
+  color: white;
+  padding: 4px 8.5px;
+  text-decoration: none;
+  border-radius: 8px;
+  border: 1.5px solid #d04444;
+  transition: all 0.2s ease;
+}
+
+.cardContainer .subjects a:hover {
+  background-color: white;
+  color: #d04444;
+  border: 1.5px solid #d04444;
+}
+
+.cardContainer h3 span {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 0.3em;
+  display: inline-block;
+}
+
+.cardContainer h4 {
+  font-weight: 500;
+}
+
+.cardContainer .description {
+  font-weight: 400;
+  max-lines: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  transition: all 0.3s ease;
+}
+
+.cardContainer .description:hover {
+  line-clamp: unset;
+  max-lines: unset;
+  -webkit-line-clamp: unset;
+}
+
+.cardContainer .subject span {
+  font-weight: 600;
+  color: black;
+}

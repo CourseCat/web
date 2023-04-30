@@ -1,4 +1,4 @@
-.collegeCard {
+.cardContainer {
   display: flex;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   padding: 20px 20px;
@@ -8,39 +8,39 @@
   color: black;
 }
 
-.collegeCard .subject {
+.cardContainer .subject {
   color: #d04444;
 }
 
-.collegeCard > div {
+.cardContainer > div {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.collegeCard > div > a {
+.cardContainer > div > a {
   text-decoration: none;
   margin-top: 3px;
 }
 
-.collegeCard > div > a:hover {
+.cardContainer > div > a:hover {
   text-decoration: underline;
 }
 
-.collegeCard img {
+.cardContainer img {
   width: 8em;
   object-fit: contain;
   min-width: 8em;
 }
 
-.collegeCard .subjects {
+.cardContainer .subjects {
   margin-top: 3px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px 10px;
 }
 
-.collegeCard .subjects a {
+.cardContainer .subjects a {
   background-color: #d04444;
   color: white;
   padding: 4px 8.5px;
@@ -50,24 +50,24 @@
   transition: all 0.2s ease;
 }
 
-.collegeCard .subjects a:hover {
+.cardContainer .subjects a:hover {
   background-color: white;
   color: #d04444;
   border: 1.5px solid #d04444;
 }
 
-.collegeCard h3 span {
+.cardContainer h3 span {
   font-size: 1.1rem;
   font-weight: 500;
   margin-top: 0.3em;
   display: inline-block;
 }
 
-.collegeCard h4 {
+.cardContainer h4 {
   font-weight: 500;
 }
 
-.collegeCard .description {
+.cardContainer .description {
   font-weight: 400;
   max-lines: 2;
   overflow: hidden;
@@ -79,13 +79,13 @@
   transition: all 0.3s ease;
 }
 
-.collegeCard .description:hover {
+.cardContainer .description:hover {
   line-clamp: unset;
   max-lines: unset;
   -webkit-line-clamp: unset;
 }
 
-.collegeCard .subject span {
+.cardContainer .subject span {
   font-weight: 600;
   color: black;
 }

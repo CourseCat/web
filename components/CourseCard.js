@@ -2,7 +2,7 @@ import styles from "./CourseCard.module.css";
 
 const CourseCard = ({ elem }) => {
   return (
-    <a href={`/courses/${elem._id}`} className={styles.collegeCard}>
+    <a href={`/courses/${elem._id}`} className={styles.cardContainer}>
       <div>
         <h3>
           {elem.name}
