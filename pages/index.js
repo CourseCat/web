@@ -1,9 +1,12 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useEffect, useState } from "react";
+import ToggleButton from "../components//ui/ToggleButton";
+import CardList from "../components/CardList";
 import CollegeCard from "../components/CollegeCard";
 import CourseCard from "../components/CourseCard";
-import List from "../components/List";
 import SubjectCard from "../components/SubjectCard";
+import Logo from "../components/ui/Logo";
+import Search from "../components/ui/Search";
 import styles from "../styles/Home.module.css";
 import getColleges from "./api/colleges";
 import getCourses from "./api/courses";
@@ -63,45 +66,40 @@ const Home = ({ colleges, subjects, courses }) => {
     }
   }, [query]);
 
+  const handleInputChange = (e) => search(e.target.value);
+
+  const cardContainer = {
+    schools: CollegeCard,
+    courses: CourseCard,
+    subjects: SubjectCard,
+  }[mode];
+
+  const cardItems = {
+    schools: colleges,
+    courses: courses,
+    subjects: subjects,
+  }[mode];
+
   return (
-    <section className={styles.home}>
-      <img src="/logo.png" alt="coursecat logo" />
-      <h1>CourseCat</h1>
-      <div className={styles.searchWrap}>
-        <input
-          type="text"
-          placeholder={`Search for ${mode}..`}
-          value={query}
-          onChange={(e) => search(e.target.value)}
-          className={styles.input}
-        />
-        <img src="/search.svg" alt="search icon" />
-      </div>
-      <div className={styles.toggleWrap}>
-        <div
-          className={`${styles.toggle} ${
-            mode === "schools" ? styles.active : ""
-          }`}
+    <section className={styles.container}>
+      <Logo />
+      <Search query={query} mode={mode} onChange={handleInputChange} />
+      <div className={styles.buttonsContainer}>
+        <ToggleButton
+          mode={mode}
+          title="Schools"
           onClick={() => toggle("schools")}
-        >
-          Schools
-        </div>
-        <div
-          className={`${styles.toggle} ${
-            mode === "courses" ? styles.active : ""
-          }`}
+        />
+        <ToggleButton
+          mode={mode}
+          title="Courses"
           onClick={() => toggle("courses")}
-        >
-          Courses
-        </div>
-        <div
-          className={`${styles.toggle} ${
-            mode === "subjects" ? styles.active : ""
-          }`}
+        />
+        <ToggleButton
+          mode={mode}
+          title="Subjects"
           onClick={() => toggle("subjects")}
-        >
-          Subjects
-        </div>
+        />
         {isPdfRendered ? (
           <PDFDownloadLink
             document={pdf}
@@ -125,25 +123,7 @@ const Home = ({ colleges, subjects, courses }) => {
           </div>
         )}
       </div>
-      {
-        <List
-          query={query}
-          array={
-            mode === "schools"
-              ? colleges
-              : mode === "courses"
-              ? courses
-              : subjects
-          }
-          box={
-            mode === "schools"
-              ? CollegeCard
-              : mode === "courses"
-              ? CourseCard
-              : SubjectCard
-          }
-        />
-      }
+      <CardList query={query} items={cardItems} container={cardContainer} />
     </section>
   );
 };

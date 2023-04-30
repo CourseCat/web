@@ -1,0 +1,19 @@
+.toggle {
+  display: flex;
+  background-color: white;
+  color: #d04444;
+  border: 2px solid #d04444;
+  cursor: pointer;
+  border-radius: 20px;
+  padding: 8px 17px;
+  transition: all 0.25s ease;
+}
+
+.toggle:hover {
+  transform: scale(1.03);
+}
+
+.toggle.active {
+  background-color: #d04444;
+  color: white;
+}

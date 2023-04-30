@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./CollegeCard.module.css";
 
 const CollegeCard = ({ elem }) => {
@@ -10,18 +11,18 @@ const CollegeCard = ({ elem }) => {
         <div className={styles.subjects}>
           {elem?.subjects?.map((subject, index) => {
             return (
-              <a
+              <Link
                 key={index}
                 href={`/schools/${elem._id}/subjects/${subject._id}`}
               >
                 {subject.name}
-              </a>
+              </Link>
             );
           })}
         </div>
-        <a href={elem.website} target="_blank" rel="noreferrer">
+        <Link href={elem.website} target="_blank" rel="noreferrer">
           Visit Website
-        </a>
+        </Link>
       </div>
     </a>
   );

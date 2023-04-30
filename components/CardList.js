@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-import styles from "./List.module.css";
+import styles from "./CardList.module.css";
 
-const List = ({ query, array, box }) => {
+const List = ({ query, items, container }) => {
   const [filtered, setFiltered] = useState([]);
-  const Card = box;
+  const Card = container;
   useEffect(() => {
     if (query === "") {
       setFiltered([]);
       return;
     }
     setFiltered(
-      array.filter((elem) => {
+      items.filter((elem) => {
         return elem.name.toLowerCase().includes(query.toLowerCase());
       })
     );
-  }, [query, array]);
+  }, [query, items]);
 
   return (
-    <div className={styles.colleges}>
+    <div className={styles.items}>
       {filtered.map((elem, index) => {
         return <Card key={index} elem={elem} />;
       })}
