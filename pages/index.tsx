@@ -1,118 +1,164 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { useEffect, useState } from "react";
+import CollegeCard from "../components/CollegeCard";
+import CourseCard from "../components/CourseCard";
+import List from "../components/List";
+import SubjectCard from "../components/SubjectCard";
+import styles from "../styles/Home.module.css";
+import getColleges from "./api/colleges";
+import getCourses from "./api/courses";
+import exportPDF from "./api/exportPDF";
+import getSubjects from "./api/subjects";
 
-const inter = Inter({ subsets: ['latin'] })
+const Home = ({ colleges, subjects, courses }) => {
+  const [query, setQuery] = useState("");
+  const [mode, setMode] = useState("schools");
+  const [isPdfRendered, setIsPdfRendered] = useState(false);
+  const [pdf, setPdf] = useState(null);
 
-export default function Home() {
+  const toggle = (state) => {
+    setMode(state);
+    setQuery("");
+    setPdf(null);
+    setIsPdfRendered(false);
+  };
+
+  const search = (value) => {
+    setQuery(value);
+  };
+
+  const exportHandler = async () => {
+    let pdfDoc;
+    if (query === "") {
+      alert("Search something..");
+      return;
+    }
+
+    if (mode === "schools") {
+      if (colleges.length === 0) {
+        alert("No colleges found..");
+        return;
+      }
+      pdfDoc = exportPDF(colleges, query, "schools");
+    } else if (mode === "courses") {
+      if (courses.length === 0) {
+        alert("No courses found..");
+        return;
+      }
+      pdfDoc = exportPDF(courses, query, "courses");
+    }
+    setPdf(pdfDoc);
+  };
+
+  useEffect(() => {
+    if (pdf) {
+      setIsPdfRendered(true);
+    }
+  }, [pdf]);
+
+  useEffect(() => {
+    if (query) {
+      setIsPdfRendered(false);
+      setPdf(null);
+    }
+  }, [query]);
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <section className={styles.home}>
+      <img src="/logo.png" alt="coursecat logo" />
+      <h1>CourseCat</h1>
+      <div className={styles.searchWrap}>
+        <input
+          type="text"
+          placeholder={`Search for ${mode}..`}
+          value={query}
+          onChange={(e) => search(e.target.value)}
         />
+        <img src="/search.svg" alt="search icon" />
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className={styles.toggleWrap}>
+        <div
+          className={`${styles.toggle} ${
+            mode === "schools" ? styles.active : ""
+          }`}
+          onClick={() => toggle("schools")}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+          Schools
+        </div>
+        <div
+          className={`${styles.toggle} ${
+            mode === "courses" ? styles.active : ""
+          }`}
+          onClick={() => toggle("courses")}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+          Courses
+        </div>
+        <div
+          className={`${styles.toggle} ${
+            mode === "subjects" ? styles.active : ""
+          }`}
+          onClick={() => toggle("subjects")}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          Subjects
+        </div>
+        {isPdfRendered ? (
+          <PDFDownloadLink
+            document={pdf}
+            fileName="coursecat_results.pdf"
+            className={styles.export}
+          >
+            {({ blob, url, loading, error }) =>
+              loading ? "Loading document..." : "Download Now"
+            }
+          </PDFDownloadLink>
+        ) : mode === "subjects" ? (
+          <></>
+        ) : (
+          <div
+            className={styles.export}
+            onClick={() => {
+              exportHandler();
+            }}
+          >
+            Export Data (PDF)
+          </div>
+        )}
       </div>
-    </main>
-  )
+      {
+        <List
+          query={query}
+          array={
+            mode === "schools"
+              ? colleges
+              : mode === "courses"
+              ? courses
+              : subjects
+          }
+          box={
+            mode === "schools"
+              ? CollegeCard
+              : mode === "courses"
+              ? CourseCard
+              : SubjectCard
+          }
+        />
+      }
+    </section>
+  );
+};
+
+export async function getStaticProps() {
+  const [responseColleges, responseSubjects, responseCourses] =
+    await Promise.all([getColleges(), getSubjects(), getCourses()]);
+
+  return {
+    props: {
+      colleges: responseColleges,
+      subjects: responseSubjects,
+      courses: responseCourses,
+    },
+    revalidate: 60, // update the data every 60 seconds
+  };
 }
+
+export default Home;
