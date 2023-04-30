@@ -73,6 +73,7 @@ const Home = ({ colleges, subjects, courses }) => {
           placeholder={`Search for ${mode}..`}
           value={query}
           onChange={(e) => search(e.target.value)}
+          className={styles.input}
         />
         <img src="/search.svg" alt="search icon" />
       </div>

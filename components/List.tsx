@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "../styles/Home.module.css";
+import styles from "./List.module.css";
 
 const List = ({ query, array, box }) => {
   const [filtered, setFiltered] = useState([]);

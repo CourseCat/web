@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "./SubjectCard.module.css";
 
 const SubjectCard = ({ elem }) => {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import collegesJson from "../data/colleges.json";
-import styles from "../styles/Home.module.css";
+import styles from "./Colleges.module.css";
 
 const Colleges = ({ query }) => {
   //console.log(query);

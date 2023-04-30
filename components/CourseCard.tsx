@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "./CourseCard.module.css";
 
 const CourseCard = ({ elem }) => {
   return (
