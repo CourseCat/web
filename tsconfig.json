@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,9 +19,25 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/exportPDF.js", "pages/index.js", "pages/api/colleges.js", "pages/api/courses.js", "pages/api/courseWithSubject.js", "pages/api/hello.tsx", "pages/api/school.js", "pages/api/subjects.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/api/exportPDF.js",
+    "pages/index.js",
+    "utils/colleges.js",
+    "pages/api/courses.js",
+    "pages/api/courseWithSubject.js",
+    "pages/api/hello.tsx",
+    "pages/api/school.js",
+    "pages/api/subjects.js"
+, "pages/schools/[schoolId]/index.js"  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

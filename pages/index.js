@@ -1,17 +1,21 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useEffect, useState } from "react";
+
+// Components
 import ToggleButton from "../components//ui/ToggleButton";
 import CardList from "../components/CardList";
 import CollegeCard from "../components/CollegeCard";
 import CourseCard from "../components/CourseCard";
-import SubjectCard from "../components/SubjectCard";
+import SubjectCard from "../components/subjects/SubjectCard";
 import Logo from "../components/ui/Logo";
 import Search from "../components/ui/Search";
 import styles from "../styles/Home.module.css";
-import getColleges from "./api/colleges";
-import getCourses from "./api/courses";
-import exportPDF from "./api/exportPDF";
-import getSubjects from "./api/subjects";
+
+// Utils
+import { getColleges } from "../utils/colleges";
+import { getCourses } from "../utils/courses";
+import exportPDF from "../utils/exportPDF";
+import { getSubjects } from "../utils/subjects";
 
 const Home = ({ colleges, subjects, courses }) => {
   const [query, setQuery] = useState("");
@@ -95,11 +99,11 @@ const Home = ({ colleges, subjects, courses }) => {
           title="Courses"
           onClick={() => toggle("courses")}
         />
-        <ToggleButton
+        {/* <ToggleButton
           mode={mode}
           title="Subjects"
           onClick={() => toggle("subjects")}
-        />
+        /> */}
         {isPdfRendered ? (
           <PDFDownloadLink
             document={pdf}

@@ -4,7 +4,7 @@ import styles from "./CollegeCard.module.css";
 
 const CollegeCard = ({ elem }) => {
   return (
-    <a href={`/schools/${elem._id}`} className={styles.cardContainer}>
+    <Link href={`/schools/${elem._id}`} className={styles.cardContainer}>
       <Image src={elem.logoUrl} alt={elem.name} width={125} height={200} />
       <div>
         <h3>{elem.name}</h3>
@@ -25,7 +25,7 @@ const CollegeCard = ({ elem }) => {
           Visit Website
         </Link>
       </div>
-    </a>
+    </Link>
   );
 };
 
