@@ -55,7 +55,7 @@ function SchoolDetails({ school }) {
                 <GoogleMap
                   mapContainerStyle={{ width: "100%", height: "400px" }}
                   center={coordinates}
-                  zoom={14}
+                  zoom={11}
                   onLoad={onLoad}
                   onUnmount={onUnmount}
                 >
@@ -70,7 +70,7 @@ function SchoolDetails({ school }) {
 
       {/* 3rd row */}
       <Grid container item spacing={2}>
-        <SubjectList subjects={school.subjects} />
+        <SubjectList school={school} />
       </Grid>
     </Grid>
   );

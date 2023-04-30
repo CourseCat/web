@@ -36,7 +36,7 @@
     "pages/api/hello.tsx",
     "pages/api/school.js",
     "pages/api/subjects.js"
-, "pages/schools/[schoolId]/index.js", "components/layout/MainNavigation.js"  ],
+, "pages/schools/[schoolId]/index.js", "components/layout/MainNavigation.js", "pages/schools/[schoolId]/subjects/[subjectId]/index.js"  ],
   "exclude": [
     "node_modules"
   ]
