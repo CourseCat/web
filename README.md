@@ -1,38 +1,93 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CourseCat Frontend Documentation
 
-## Getting Started
+## Overview
 
-First, run the development server:
+CourseCat (https://course.cat) is a web application developed using Next.js, a popular React framework for server-rendered applications. This frontend documentation provides a high-level overview of the application's structure, components, and key features, as well as instructions for setting up and running the project locally.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Table of Contents
+
+1. [Prerequisites](#prerequisites)
+2. [Project Structure](#project-structure)
+3. [Components](#components)
+4. [Styles](#styles)
+5. [Setting up the Project](#setting-up-the-project)
+6. [Running the Application](#running-the-application)
+
+### Prerequisites
+
+To work with CourseCat's frontend, ensure you have the following installed on your machine:
+
+1. Node.js (v14.x or later)
+2. npm (v6.x or later)
+
+### Project Structure
+
+The project follows a standard Next.js file structure with some custom additions. Here is an overview of the key folders and files:
+
+```
+coursecat/
+├── components/
+│   ├── CourseCard/
+│   ├── Footer/
+│   ├── Header/
+│   ├── SearchBar/
+│   └── index.js
+├── pages/
+│   ├── _app.js
+│   ├── _document.js
+│   ├── index.js
+│   └── course/
+│       └── [id].js
+├── public/
+│   ├── images/
+│   └── favicon.ico
+├── styles/
+│   ├── globals.css
+│   ├── theme.js
+│   └── components/
+│       ├── CourseCard.module.css
+│       ├── Footer.module.css
+│       ├── Header.module.css
+│       └── SearchBar.module.css
+├── package.json
+└── next.config.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Components
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+The application is built using a modular, component-based architecture. Key components include:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+1. **CourseCard**: A reusable card component that displays course information.
+2. **Footer**: The website's footer, which contains copyright information and links to external resources.
+3. **Header**: The website's header, which includes the application logo and navigation links.
+4. **SearchBar**: A search bar component that allows users to search for courses.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Styles
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+CourseCat's frontend utilizes CSS modules to scope styles to individual components, ensuring that styles do not leak into other parts of the application. The `styles/` folder contains global styles, theme configurations, and component-specific styles.
 
-## Learn More
+1. `globals.css`: Contains global styles applied to the entire application.
+2. `theme.js`: A JavaScript module that exports an object containing theme-specific configurations (e.g., colors, fonts).
+3. `components/*.module.css`: CSS modules for individual components.
 
-To learn more about Next.js, take a look at the following resources:
+### Setting up the Project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To set up the project locally, follow these steps:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Clone the repository: `git clone https://github.com/yourusername/coursecat.git`
+2. Change to the project directory: `cd coursecat`
+3. Install dependencies: `npm install`
 
-## Deploy on Vercel
+### Running the Application
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To run the application locally, execute the following command in the project directory:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+npm run dev
+```
+
+This will start the development server on `http://localhost:3000`. The application will automatically reload if you make any changes to the source code.
+
+## Conclusion
+
+This documentation provides an overview of CourseCat's frontend, including the project structure, components, and styles. By following the instructions outlined above, you should be able to set up and run the application locally.
