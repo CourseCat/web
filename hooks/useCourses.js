@@ -3,17 +3,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 const batchSize = 10;
 
-const fetchCourses = async ({ pageParam = 0, query, courses }) => {
-  const filteredCourses = query
-    ? courses.filter((course) =>
-        course.name.toLowerCase().includes(query.toLowerCase())
-      )
-    : courses;
-
+const fetchCourses = async ({ pageParam = 0, courses }) => {
   const start = pageParam * batchSize;
   const end = start + batchSize;
 
-  return filteredCourses.slice(start, end);
+  return courses.slice(start, end);
 };
 
 export const useCourses = (query, courses) => {
@@ -23,9 +17,11 @@ export const useCourses = (query, courses) => {
     {
       getNextPageParam: (lastPage, allPages) => {
         const nextPageIndex = allPages.length;
-        const hasMore =
-          allPages.reduce((total, page) => total + page.length, 0) <
-          courses.length;
+        const totalFetched = allPages.reduce(
+          (total, page) => total + page.length,
+          0
+        );
+        const hasMore = totalFetched < courses.length;
         return hasMore ? nextPageIndex : false;
       },
     }

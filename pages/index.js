@@ -23,13 +23,16 @@ const Home = ({ colleges }) => {
   const [isPdfRendered, setIsPdfRendered] = useState(false);
   const [pdf, setPdf] = useState(null);
   const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchCourses() {
       if (debouncedQuery.length >= 2) {
+        setIsLoading(true);
         const courses = await getCoursesByQuery(debouncedQuery);
-        console.log(courses);
+        console.log("Courses:", courses);
         setCourses(courses);
+        setIsLoading(false);
       }
     }
     fetchCourses();
@@ -132,7 +135,11 @@ const Home = ({ colleges }) => {
         <CollegeList query={debouncedQuery} colleges={colleges} />
       )}
       {mode == "courses" && (
-        <CourseList query={debouncedQuery} courses={courses} />
+        <CourseList
+          query={debouncedQuery}
+          courses={courses}
+          isLoading={isLoading}
+        />
       )}
     </Container>
   );

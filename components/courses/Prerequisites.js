@@ -5,8 +5,11 @@ import Tree from "react-d3-tree";
 import styles from "./Prerequisites.module.css";
 
 const DEFAULT = {
-  name: "Parent",
-  children: [{ name: "Child 1" }, { name: "Child 2" }],
+  name: "currentCourse",
+  children: [
+    { name: "CS 123 CouserName1", group: "1" },
+    { name: "CS 234 CouserName2", group: "1" },
+  ],
 };
 
 const renderForeignObjectNode = ({
