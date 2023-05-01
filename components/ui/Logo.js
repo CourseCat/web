@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import styles from "./Logo.module.css";
 
 function Logo() {
   return (
-    <Box>
+    <Box justifyContent="center">
       <Image
         src="/images/logo.png"
         alt="Course Cat Logo"
@@ -12,12 +11,8 @@ function Logo() {
         height={250}
         priority
       />
-      <Typography
-        variant="h1"
-        className={styles.title}
-        sx={{ marginBottom: 2, textAlign: "center" }}
-      >
-        CourseCat
+      <Typography variant="h3" mb={3} fontWeight="bold" textAlign="center">
+        Course Cat
       </Typography>
     </Box>
   );
