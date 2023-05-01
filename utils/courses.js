@@ -72,6 +72,10 @@ export async function getPrereqsById(courseId) {
   try {
     const response = await axios.get(`${API_URL}/courses/${courseId}/prereqs`);
 
+    if (response.status !== 200) {
+      return { tree: null, message: "Coming Soon..." };
+    }
+
     if (response.data && response.data.prerequisites) {
       return response.data.prerequisites;
     }

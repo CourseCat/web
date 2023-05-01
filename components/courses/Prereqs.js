@@ -12,7 +12,10 @@ const renderForeignObjectNode = ({
     <circle r={15}></circle>
     {/* `foreignObject` requires width & height to be explicitly set. */}
     <foreignObject {...foreignObjectProps}>
-      <Box style={{ border: "1px solid black", backgroundColor: "#dedede" }}>
+      <Box
+        style={{ border: "1px solid black", backgroundColor: "#dedede" }}
+        width={100}
+      >
         <h3 style={{ textAlign: "center" }}>{nodeDatum.name}</h3>
         {/* <Link href={`/courses/${nodeDatum._id}`}>View Course</Link> */}
         {nodeDatum.children && (
