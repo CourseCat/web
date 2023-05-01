@@ -27,7 +27,7 @@ function SchoolDetails({ school }) {
     map.fitBounds(bounds);
 
     setMap(map);
-  }, []);
+  }, [coordinates]);
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);

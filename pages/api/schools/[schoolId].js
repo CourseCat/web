@@ -1,4 +1,4 @@
-import { getSchoolById } from "../../../lib/schools";
+import { getSchoolById } from "../../../utils/schools";
 
 export default async function handler(req, res) {
   const { schoolId } = req.query;
