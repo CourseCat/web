@@ -1,3 +1,4 @@
+import { Box, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Tree from "react-d3-tree";
@@ -54,9 +55,11 @@ const Prerequisites = ({ prerequisites = DEFAULT }) => {
     height = 500 - margin.top - margin.bottom;
 
   return (
-    <div>
-      <h3>Prerequisites</h3>
-      <div style={{ width: "100%", height: "400px" }}>
+    <Stack>
+      <Typography variant="h3" gutterBottom>
+        Prerequisites
+      </Typography>
+      <Box style={{ width: "100%", height: "400px" }}>
         <Tree
           data={prerequisites}
           translate={translate}
@@ -71,8 +74,8 @@ const Prerequisites = ({ prerequisites = DEFAULT }) => {
           branchNodeClassName={styles.node__branch}
           leafNodeClassName={styles.node__leaf}
         />
-      </div>
-    </div>
+      </Box>
+    </Stack>
   );
 };
 

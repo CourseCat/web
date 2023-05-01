@@ -1,4 +1,3 @@
-import Prerequisites from "@/components/courses/Prerequisites";
 import { getCourseById } from "@/utils/courses";
 import { Box, Container, Paper, Typography } from "@mui/material";
 import Link from "next/link";
@@ -64,11 +63,10 @@ const CourseDetails = ({ course }) => {
           Prerequisites
         </Typography>
         {course.prerequisites ? (
-          <Typography variant="body1">{`Visualization for ${course.prerequisites} coming soon`}</Typography>
+          <Typography variant="body1">{`Visualization for "${course.prerequisites}" coming soon`}</Typography>
         ) : (
           <Typography variant="body1">Visualization coming soon...</Typography>
         )}
-        <Prerequisites />
       </Box>
 
       <Box mt={3}>
