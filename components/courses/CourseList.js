@@ -10,8 +10,6 @@ function CourseList({ query, courses, isLoading }) {
     courses
   );
 
-  console.log("Data:", data);
-
   const handleScroll = useCallback(() => {
     const scrollTop = window.pageYOffset;
     const windowHeight = window.innerHeight;

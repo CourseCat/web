@@ -30,7 +30,6 @@ const Home = ({ colleges }) => {
       if (debouncedQuery.length >= 2) {
         setIsLoading(true);
         const courses = await getCoursesByQuery(debouncedQuery);
-        console.log("Courses:", courses);
         setCourses(courses);
         setIsLoading(false);
       }

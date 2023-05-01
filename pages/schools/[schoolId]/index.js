@@ -21,13 +21,16 @@ function SchoolDetails({ school }) {
   const [map, setMap] = useState(null);
   const { coordinates } = school;
 
-  const onLoad = useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(coordinates);
-    map.fitBounds(bounds);
+  const onLoad = useCallback(
+    function callback(map) {
+      // This is just an example of getting and using the map instance!!! don't just blindly copy!
+      const bounds = new window.google.maps.LatLngBounds(coordinates);
+      map.fitBounds(bounds);
 
-    setMap(map);
-  }, [coordinates]);
+      setMap(map);
+    },
+    [coordinates]
+  );
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
@@ -55,7 +58,7 @@ function SchoolDetails({ school }) {
                 <GoogleMap
                   mapContainerStyle={{ width: "100%", height: "400px" }}
                   center={coordinates}
-                  zoom={11}
+                  zoom={12}
                   onLoad={onLoad}
                   onUnmount={onUnmount}
                 >
@@ -81,11 +84,6 @@ export default SchoolDetails;
 export async function getServerSideProps({ params }) {
   const { schoolId } = params;
   const school = await getSchoolById(schoolId);
-
-  console.log(school);
-
-  // const res = await fetch(`http://localhost:3001/schools/${params.schoolId}`);
-  // const school = await res.json();
 
   return {
     props: {

@@ -91,6 +91,7 @@ export default SubjectDetails;
 
 export async function getServerSideProps({ params }) {
   const { schoolId, subjectId } = params;
+
   const courses = await getCourses(schoolId, subjectId);
   const school = await getSchoolById(schoolId);
   const subject = school.subjects.find((subject) => subject._id === subjectId);
