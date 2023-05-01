@@ -1,11 +1,25 @@
-import { getCourseById } from "@/utils/courses";
+import Prereqs from "@/components/courses/Prereqs";
+import { getCourseById, getPrereqsById } from "@/utils/courses";
 import { Box, Container, Paper, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useLayoutEffect, useState } from "react";
 
 const CourseDetails = ({ course }) => {
   const router = useRouter();
   const { courseId } = router.query;
+  const [prereqs, setPrereqs] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useLayoutEffect(() => {
+    async function fetchPrereqs() {
+      setIsLoading(true);
+      const prereqs = await getPrereqsById(courseId);
+      setPrereqs(prereqs);
+      setIsLoading(false);
+    }
+    fetchPrereqs();
+  }, [courseId]);
 
   if (!course) {
     return (
@@ -60,13 +74,11 @@ const CourseDetails = ({ course }) => {
       {/* Future Content */}
       <Box mt={3}>
         <Typography variant="h5" gutterBottom>
-          Prerequisites
+          Prerequisites Visualization
         </Typography>
-        {course.prerequisites ? (
-          <Typography variant="body1">{`Visualization for "${course.prerequisites}" coming soon`}</Typography>
-        ) : (
-          <Typography variant="body1">Visualization coming soon...</Typography>
-        )}
+        {isLoading && <Typography variant="body1">Loading...</Typography>}
+        {prereqs && <Typography variant="body1">{prereqs.message}</Typography>}
+        {prereqs && prereqs.tree && <Prereqs tree={prereqs.tree} />}
       </Box>
 
       <Box mt={3}>

@@ -1,16 +1,7 @@
-import { Box, Stack, Typography } from "@mui/material";
-import Link from "next/link";
+import { Box, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import Tree from "react-d3-tree";
-import styles from "./Prerequisites.module.css";
-
-const DEFAULT = {
-  name: "currentCourse",
-  children: [
-    { name: "CS 123 CouserName1", group: "1" },
-    { name: "CS 234 CouserName2", group: "1" },
-  ],
-};
+import styles from "./Prereqs.module.css";
 
 const renderForeignObjectNode = ({
   nodeDatum,
@@ -21,23 +12,21 @@ const renderForeignObjectNode = ({
     <circle r={15}></circle>
     {/* `foreignObject` requires width & height to be explicitly set. */}
     <foreignObject {...foreignObjectProps}>
-      <div style={{ border: "1px solid black", backgroundColor: "#dedede" }}>
+      <Box style={{ border: "1px solid black", backgroundColor: "#dedede" }}>
         <h3 style={{ textAlign: "center" }}>{nodeDatum.name}</h3>
-        {/* View Course */}
-        <Link href={`/courses/${nodeDatum._id}`}>View Course</Link>
+        {/* <Link href={`/courses/${nodeDatum._id}`}>View Course</Link> */}
         {nodeDatum.children && (
           <button style={{ width: "100%" }} onClick={toggleNode}>
             {nodeDatum.__rd3t.collapsed ? "Expand" : "Collapse"}
           </button>
         )}
-      </div>
+      </Box>
     </foreignObject>
   </g>
 );
 
-const Prerequisites = ({ prerequisites = DEFAULT }) => {
+export default function Prereqs({ tree }) {
   const [translate, setTranslate] = useState({ x: 0, y: 0 });
-
   const nodeSize = { x: 200, y: 200 };
   const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: 20 };
 
@@ -53,18 +42,13 @@ const Prerequisites = ({ prerequisites = DEFAULT }) => {
     });
   }, []);
 
-  const margin = { top: 100, right: 50, bottom: 100, left: 50 },
-    width = 900 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+  // console.log(tree);
 
   return (
     <Stack>
-      <Typography variant="h3" gutterBottom>
-        Prerequisites
-      </Typography>
       <Box style={{ width: "100%", height: "400px" }}>
         <Tree
-          data={prerequisites}
+          data={tree}
           translate={translate}
           nodeSize={nodeSize}
           renderCustomNodeElement={(rd3tProps) =>
@@ -80,6 +64,4 @@ const Prerequisites = ({ prerequisites = DEFAULT }) => {
       </Box>
     </Stack>
   );
-};
-
-export default Prerequisites;
+}

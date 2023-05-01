@@ -68,7 +68,7 @@ export async function getCourseById(courseId) {
   return null;
 }
 
-export async function getPrerequisitesById(courseId) {
+export async function getPrereqsById(courseId) {
   try {
     const response = await axios.get(`${API_URL}/courses/${courseId}/prereqs`);
 
@@ -77,6 +77,7 @@ export async function getPrerequisitesById(courseId) {
     }
   } catch (error) {
     console.error("Error fetching course data:", error);
+    return { tree: null, message: "Coming Soon..." };
   }
   return null;
 }
