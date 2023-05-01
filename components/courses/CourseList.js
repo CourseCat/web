@@ -1,5 +1,5 @@
-import { Stack } from "@mui/material";
-import { useEffect } from "react";
+import { Box, Stack } from "@mui/material";
+import { useEffect, useCallback } from "react";
 import { useCourses } from "../../hooks/useCourses";
 import CourseCard from "./CourseCard";
 
@@ -9,7 +9,7 @@ function CourseList({ query, courses }) {
     courses
   );
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const scrollTop = window.pageYOffset;
     const windowHeight = window.innerHeight;
     const docHeight = document.documentElement.scrollHeight;
@@ -17,7 +17,7 @@ function CourseList({ query, courses }) {
     if (scrollTop + windowHeight >= docHeight && hasNextPage) {
       fetchNextPage();
     }
-  };
+  }, [hasNextPage, fetchNextPage]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
