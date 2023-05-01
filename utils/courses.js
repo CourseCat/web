@@ -1,17 +1,33 @@
 import axios from "axios";
 
-export async function getCourses(schoolId = "", subjectId = "") {
+const API_URL = "https://course-cat.herokuapp.com";
+
+export async function getCoursesByQuery(query) {
+  try {
+    // courses/search/:query
+    const response = await axios.get(`${API_URL}/courses/search/${query}`);
+
+    if (response.data && response.data.courses) {
+      return response.data.courses;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+export async function getCourses(schoolId = null, subjectId = null) {
   if (schoolId && subjectId) {
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         "https://course-cat.herokuapp.com/courses",
         {
           schoolId: schoolId,
           subjectId: subjectId,
         }
       );
-
-      console.log(response.data);
 
       if (response.data && response.data.courses) {
         return response.data.courses;
@@ -24,10 +40,21 @@ export async function getCourses(schoolId = "", subjectId = "") {
     }
   }
 
-  const response = await fetch("https://course-cat.herokuapp.com/courses");
-  const data = await response.json();
-  if (data && data.courses && data.courses.length > 0) return data.courses;
-  else return [];
+  try {
+    const response = await axios.get(`${API_URL}/courses`);
+
+    console.log("here", response.data);
+
+    if (response.data && response.data.courses) {
+      console.log("here", response.data.courses);
+      return response.data.courses;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 }
 
 export async function getCoursesWithSubjects(subjectId, schoolId) {

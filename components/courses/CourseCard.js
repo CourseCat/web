@@ -13,10 +13,10 @@ const CourseCard = ({ course }) => {
   return (
     <Card onClick={handleOnClick} className={styles.cardContainer}>
       <CardContent>
+        <Typography variant="h5" fontWeight="bold">
+          {course.courseNumber}
+        </Typography>
         <Typography variant="h6" component="h3" gutterBottom>
-          <Typography variant="h5" fontWeight="bold">
-            {course.courseNumber}
-          </Typography>
           {course.name}
         </Typography>
         <Typography variant="body1" className={styles.description} gutterBottom>

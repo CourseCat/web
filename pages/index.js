@@ -4,9 +4,7 @@ import { useDebounce } from "use-debounce";
 
 // Components
 import ToggleButton from "../components//ui/ToggleButton";
-import CourseCard from "../components/courses/CourseCard";
 import CourseList from "../components/courses/CourseList";
-import CollegeCard from "../components/schools/CollegeCard";
 import CollegeList from "../components/schools/CollegeList";
 import Logo from "../components/ui/Logo";
 import Search from "../components/ui/Search";
@@ -15,16 +13,27 @@ import styles from "../styles/Home.module.css";
 // Utils
 import { Box, Container, Stack } from "@mui/material";
 import { getColleges } from "../utils/colleges";
-import { getCourses } from "../utils/courses";
+import { getCoursesByQuery } from "../utils/courses";
 import exportPDF from "../utils/exportPDF";
-import { getSubjects } from "../utils/subjects";
 
-const Home = ({ colleges, subjects, courses }) => {
+const Home = ({ colleges }) => {
   const [query, setQuery] = useState("");
-  const [debouncedQuery] = useDebounce(query, 750);
+  const [debouncedQuery] = useDebounce(query, 500);
   const [mode, setMode] = useState("schools");
   const [isPdfRendered, setIsPdfRendered] = useState(false);
   const [pdf, setPdf] = useState(null);
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    async function fetchCourses() {
+      if (debouncedQuery.length >= 2) {
+        const courses = await getCoursesByQuery(debouncedQuery);
+        console.log(courses);
+        setCourses(courses);
+      }
+    }
+    fetchCourses();
+  }, [debouncedQuery]);
 
   const toggle = (state) => {
     setMode(state);
@@ -73,16 +82,6 @@ const Home = ({ colleges, subjects, courses }) => {
     const { value } = e.target;
     setQuery(value);
   };
-
-  const cardContainer = {
-    schools: CollegeCard,
-    courses: CourseCard,
-  }[mode];
-
-  const cardItems = {
-    schools: colleges,
-    courses: courses,
-  }[mode];
 
   return (
     <Container maxWidth="md" className={styles.container}>
@@ -140,14 +139,11 @@ const Home = ({ colleges, subjects, courses }) => {
 };
 
 export async function getStaticProps() {
-  const [responseColleges, responseSubjects, responseCourses] =
-    await Promise.all([getColleges(), getSubjects(), getCourses()]);
+  const colleges = await getColleges();
 
   return {
     props: {
-      colleges: responseColleges,
-      subjects: responseSubjects,
-      courses: responseCourses,
+      colleges,
     },
     revalidate: 60, // update the data every 60 seconds
   };
