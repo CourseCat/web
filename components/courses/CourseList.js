@@ -1,42 +1,48 @@
-import { Container } from "@mui/material";
-import { Stack } from "@mui/system";
+import { Stack } from "@mui/material";
+import { useEffect } from "react";
+import { useCourses } from "../../hooks/useCourses";
 import CourseCard from "./CourseCard";
 
 function CourseList({ query, courses }) {
-  // const classes = useStyles();
-  // const [page, setPage] = React.useState(1);
-  // const [coursesPerPage, setCoursesPerPage] = React.useState(10);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCourses(
+    query,
+    courses
+  );
 
-  // const handleChange = (event, value) => {
-  //   setPage(value);
-  // };
+  const handleScroll = () => {
+    const scrollTop = window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
 
-  // const startIndex = (page - 1) * coursesPerPage;
-  // const endIndex = startIndex + coursesPerPage;
-  // const paginatedCourses = items.slice(startIndex, endIndex);
+    if (scrollTop + windowHeight >= docHeight && hasNextPage) {
+      fetchNextPage();
+    }
+  };
 
-  const filteredCourses = query
-    ? courses.filter((course) => {
-        return course.name.toLowerCase().includes(query.toLowerCase());
-      })
-    : [];
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
+  const renderItems = () => {
+    return data
+      ? data.pages.flatMap((page) =>
+          page.map((course) => <CourseCard key={course._id} course={course} />)
+        )
+      : [];
+  };
 
   return (
-    <Container>
-      <Stack gap={2}>
-        {filteredCourses.map((course) => (
-          <CourseCard key={course._id} course={course} />
-        ))}
-      </Stack>
-      {/* <div className={classes.pagination}>
-        <Pagination
-          count={Math.ceil(items.length / coursesPerPage)}
-          page={page}
-          onChange={handleChange}
-          color="primary"
-        />
-      </div> */}
-    </Container>
+    <>
+      <Stack spacing={2}>{renderItems()}</Stack>
+      {isFetchingNextPage && (
+        <Box textAlign="center" my={2}>
+          Loading...
+        </Box>
+      )}
+    </>
   );
 }
 
