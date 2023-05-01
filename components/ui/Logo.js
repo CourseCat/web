@@ -3,7 +3,12 @@ import Image from "next/image";
 
 function Logo() {
   return (
-    <Box justifyContent="center">
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Image
         src="/images/logo.png"
         alt="Course Cat Logo"
