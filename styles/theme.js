@@ -15,9 +15,6 @@ const theme = createTheme({
         disableRipple: false, // No more ripple, on the whole application 💣!
       },
     },
-    MuiAppBar: {
-      defaultProps: {},
-    },
   },
 });
 
