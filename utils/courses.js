@@ -2,9 +2,16 @@ import axios from "axios";
 
 const API_URL = "https://course-cat.herokuapp.com";
 
-export async function getCoursesByQuery(query) {
+export async function fetchCoursesByQuery(query, searchInDescription = false) {
+  const body = {
+    query,
+    searchInDescription,
+  };
+
+  console.log(body);
+
   try {
-    const response = await axios.get(`${API_URL}/courses/search/${query}`);
+    const response = await axios.post(`${API_URL}/courses/search`, body);
 
     if (response.data && response.data.courses) {
       return response.data.courses;

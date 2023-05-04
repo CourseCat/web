@@ -11,9 +11,15 @@ import Search from "../components/ui/Search";
 import styles from "../styles/Home.module.css";
 
 // Utils
-import { Box, Container, Stack } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  Stack,
+} from "@mui/material";
 import { getColleges } from "../utils/colleges";
-import { getCoursesByQuery } from "../utils/courses";
+import { fetchCoursesByQuery } from "../utils/courses";
 import exportPDF from "../utils/exportPDF";
 
 const Home = ({ colleges }) => {
@@ -24,18 +30,23 @@ const Home = ({ colleges }) => {
   const [pdf, setPdf] = useState(null);
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchInDescription, setSearchInDescription] = useState(false);
 
   useEffect(() => {
     async function fetchCourses() {
-      if (debouncedQuery.length >= 2) {
+      if (query.length >= 2) {
         setIsLoading(true);
-        const courses = await getCoursesByQuery(debouncedQuery);
+        // console.log("Fetching courses...");
+        // console.log(query);
+        // console.log(searchInDescription);
+
+        const courses = await fetchCoursesByQuery(query, searchInDescription);
         setCourses(courses);
         setIsLoading(false);
       }
     }
     fetchCourses();
-  }, [debouncedQuery]);
+  }, [query, searchInDescription, mode]);
 
   const toggle = (state) => {
     setMode(state);
@@ -106,6 +117,17 @@ const Home = ({ colleges }) => {
             title="Courses"
             onClick={() => toggle("courses")}
           />
+          {mode === "courses" && (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={searchInDescription}
+                  onChange={() => setSearchInDescription(!searchInDescription)}
+                />
+              }
+              label="Search in Description"
+            />
+          )}
           {isPdfRendered ? (
             <PDFDownloadLink
               document={pdf}
