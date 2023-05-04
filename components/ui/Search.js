@@ -2,12 +2,12 @@ import { Box } from "@mui/material";
 import Image from "next/image";
 import styles from "./Search.module.css";
 
-function Search({ query, mode, onChange }) {
+function Search({ query, mode, onChange, placeholder }) {
   return (
     <Box className={styles.searchContainer}>
       <input
         type="text"
-        placeholder={`Search for ${mode}..`}
+        placeholder={placeholder || `Search for ${mode}..`}
         value={query}
         onChange={onChange}
         className={styles.input}

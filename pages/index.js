@@ -6,6 +6,7 @@ import { useDebounce } from "usehooks-ts";
 import ToggleButton from "../components//ui/ToggleButton";
 import CourseList from "../components/courses/CourseList";
 import CollegeList from "../components/schools/CollegeList";
+import LoadingView from "../components/ui/LoadingView";
 import Logo from "../components/ui/Logo";
 import Search from "../components/ui/Search";
 import styles from "../styles/Home.module.css";
@@ -152,8 +153,13 @@ const Home = ({ colleges }) => {
           )}
         </Stack>
       </Box>
-      {mode == "schools" && <CollegeList query={query} colleges={colleges} />}
-      {mode == "courses" && <CourseList courses={courses} />}
+      <Box>
+        {isLoading && <LoadingView />}
+        {mode == "schools" && <CollegeList query={query} colleges={colleges} />}
+        {mode == "courses" && (
+          <CourseList courses={courses} isLoading={isLoading} />
+        )}
+      </Box>
     </Container>
   );
 };

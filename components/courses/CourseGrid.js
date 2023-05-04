@@ -1,17 +1,21 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import BottomText from "../ui/BottomText";
 import LoadingView from "../ui/LoadingView";
-import CourseCard from "./CourseCard";
+import CourseGridItem from "./CourseGridItem";
 import useIntersectionObserver from "./useIntersectionObserver";
 
-function CourseList({ courses, isLoading }) {
-  const [initialCourses, setInitialCourses] = useState(courses.slice(0, 10));
+const PAGE_SIZE = 12;
+
+export default function CourseGrid({ courses, isLoading }) {
+  const [initialCourses, setInitialCourses] = useState(
+    courses.slice(0, PAGE_SIZE)
+  );
   const [displayedCourses, setDisplayedCourses] = useState(initialCourses);
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    setInitialCourses(courses.slice(0, 10));
+    setInitialCourses(courses.slice(0, PAGE_SIZE));
   }, [courses]);
 
   useEffect(() => {
@@ -21,7 +25,7 @@ function CourseList({ courses, isLoading }) {
 
   const loadMoreCourses = useCallback(() => {
     const currentLength = displayedCourses.length;
-    const newCourses = courses.slice(currentLength, currentLength + 10);
+    const newCourses = courses.slice(currentLength, currentLength + PAGE_SIZE);
 
     if (newCourses.length === 0) {
       setHasMore(false);
@@ -44,14 +48,10 @@ function CourseList({ courses, isLoading }) {
 
   return (
     <Box>
-      <Stack spacing={2}>
-        {displayedCourses.map((course) => (
-          <CourseCard key={course._id} course={course} />
-        ))}
-      </Stack>
+      <Grid container spacing={4}>
+        {displayedCourses.map((course) => CourseGridItem({ course }))}
+      </Grid>
       {hasMore ? <div ref={loaderRef}></div> : <BottomText />}
     </Box>
   );
 }
-
-export default CourseList;

@@ -14,8 +14,8 @@ function SchoolInfo({ school }) {
           <Image
             src={school.logoUrl}
             alt={school.name}
-            width={500}
-            height={500}
+            width={300}
+            height={300}
           />
         </Box>
 

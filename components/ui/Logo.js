@@ -12,9 +12,10 @@ function Logo() {
       <Image
         src="/images/logo.png"
         alt="Course Cat Logo"
+        placeholder="blur"
+        blurDataURL="/images/logo.png"
         width={250}
         height={250}
-        priority
       />
       <Typography variant="h3" mb={3} fontWeight="bold" textAlign="center">
         Course Cat

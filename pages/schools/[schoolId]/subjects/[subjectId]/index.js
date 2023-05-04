@@ -1,33 +1,24 @@
+import CourseGrid from "@/components/courses/CourseGrid";
+import Search from "@/components/ui/Search";
 import { getCourses } from "@/utils/courses";
 import { getSchoolById } from "@/utils/schools";
-import {
-  Box,
-  Card,
-  CardContent,
-  Container,
-  Grid,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import Link from "next/link";
+import { Box, Container, Stack, Typography } from "@mui/material";
+import { useState } from "react";
+import { useDebounce } from "usehooks-ts";
 
 const SubjectDetails = ({ courses, subjectName, schoolName }) => {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 500);
 
-  const getGridCols = () => {
-    if (isDesktop) return 4;
-    if (isTablet) return 6;
-    return 12;
-  };
+  const filteredCourses = courses.filter((course) => {
+    const courseName = course.name.toLowerCase();
+    const query = debouncedQuery.toLowerCase();
 
-  const truncateDescription = (description) => {
-    const sentences = description.match(/[^\.!\?]+[\.!\?]+/g);
-    const truncated = sentences.slice(0, 5).join(" ");
-    return sentences.length > 5 ? truncated + "..."
-     : truncated;
+    return courseName.includes(query);
+  });
+
+  const onSearch = (e) => {
+    setQuery(e.target.value);
   };
 
   return (
@@ -39,50 +30,14 @@ const SubjectDetails = ({ courses, subjectName, schoolName }) => {
             {schoolName}
           </Typography>
         </Typography>
-        <Grid container spacing={4}>
-          {courses.map((course) => (
-            <Grid item xs={getGridCols()} key={course._id}>
-              <Link
-                href={`/courses/${course._id}`}
-                underline="none"
-                sx={{ textDecoration: "none" }}
-              >
-                <Card>
-                  <CardContent>
-                    <Typography
-                      variant="subtitle1"
-                      fontWeight="bold"
-                      color="primary"
-                      gutterBottom
-                    >
-                      {course.courseNumber}
-                    </Typography>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {course.name}
-                    </Typography>
-                    <Typography variant="caption" display="block" gutterBottom>
-                      {course.school.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{
-                        display: "-webkit-box",
-                        WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 3,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        maxHeight: "4.5em",
-                      }}
-                    >
-                      {course.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Link>
-            </Grid>
-          ))}
-        </Grid>
+        <Stack gap={3}>
+          <Search
+            query={query}
+            onChange={onSearch}
+            placeholder="Search for courses"
+          />
+          <CourseGrid courses={filteredCourses} />
+        </Stack>
       </Box>
     </Container>
   );
