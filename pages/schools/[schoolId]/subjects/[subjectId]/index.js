@@ -26,7 +26,8 @@ const SubjectDetails = ({ courses, subjectName, schoolName }) => {
   const truncateDescription = (description) => {
     const sentences = description.match(/[^\.!\?]+[\.!\?]+/g);
     const truncated = sentences.slice(0, 5).join(" ");
-    return sentences.length > 5 ? truncated + "..." : truncated;
+    return sentences.length > 5 ? truncated + "..."
+     : truncated;
   };
 
   return (

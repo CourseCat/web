@@ -1,8 +1,8 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useEffect, useState } from "react";
-import { useDebounce } from "use-debounce";
 
 // Components
+import { useDebounce } from "usehooks-ts";
 import ToggleButton from "../components//ui/ToggleButton";
 import CourseList from "../components/courses/CourseList";
 import CollegeList from "../components/schools/CollegeList";
@@ -24,7 +24,7 @@ import exportPDF from "../utils/exportPDF";
 
 const Home = ({ colleges }) => {
   const [query, setQuery] = useState("");
-  const [debouncedQuery] = useDebounce(query, 500);
+  const debouncedQuery = useDebounce(query, 500);
   const [mode, setMode] = useState("schools");
   const [isPdfRendered, setIsPdfRendered] = useState(false);
   const [pdf, setPdf] = useState(null);
@@ -33,20 +33,22 @@ const Home = ({ colleges }) => {
   const [searchInDescription, setSearchInDescription] = useState(false);
 
   useEffect(() => {
-    async function fetchCourses() {
-      if (query.length >= 2) {
-        setIsLoading(true);
-        // console.log("Fetching courses...");
-        // console.log(query);
-        // console.log(searchInDescription);
+    if (query.length < 3) {
+      setCourses([]);
+      return;
+    }
 
-        const courses = await fetchCoursesByQuery(query, searchInDescription);
-        setCourses(courses);
-        setIsLoading(false);
-      }
+    async function fetchCourses() {
+      setIsLoading(true);
+      const courses = await fetchCoursesByQuery(
+        debouncedQuery,
+        searchInDescription
+      );
+      setCourses(courses);
+      setIsLoading(false);
     }
     fetchCourses();
-  }, [query, searchInDescription, mode]);
+  }, [debouncedQuery, searchInDescription]);
 
   const toggle = (state) => {
     setMode(state);
@@ -138,8 +140,6 @@ const Home = ({ colleges }) => {
                 loading ? "Loading document..." : "Download Now"
               }
             </PDFDownloadLink>
-          ) : mode === "subjects" ? (
-            <></>
           ) : (
             <div
               className={styles.export}
@@ -152,16 +152,8 @@ const Home = ({ colleges }) => {
           )}
         </Stack>
       </Box>
-      {mode == "schools" && (
-        <CollegeList query={debouncedQuery} colleges={colleges} />
-      )}
-      {mode == "courses" && (
-        <CourseList
-          query={debouncedQuery}
-          courses={courses}
-          isLoading={isLoading}
-        />
-      )}
+      {mode == "schools" && <CollegeList query={query} colleges={colleges} />}
+      {mode == "courses" && <CourseList courses={courses} />}
     </Container>
   );
 };

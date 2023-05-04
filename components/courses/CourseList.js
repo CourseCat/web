@@ -1,57 +1,56 @@
-import { Box, Stack } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
-import { useCallback, useEffect } from "react";
-import { useCourses } from "../../hooks/useCourses";
+import { Box, Stack, Typography } from "@mui/material";
+import { useCallback, useEffect, useRef, useState } from "react";
 import CourseCard from "./CourseCard";
+import useIntersectionObserver from "./useIntersectionObserver";
 
-function CourseList({ query, courses, isLoading }) {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCourses(
-    query,
-    courses
-  );
-
-  const handleScroll = useCallback(() => {
-    const scrollTop = window.pageYOffset;
-    const windowHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight;
-
-    if (scrollTop + windowHeight >= docHeight && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [hasNextPage, fetchNextPage]);
+function CourseList({ courses }) {
+  const [initialCourses, setInitialCourses] = useState(courses.slice(0, 10));
+  const [displayedCourses, setDisplayedCourses] = useState(initialCourses);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
+    setInitialCourses(courses.slice(0, 10));
+  }, [courses]);
 
-  const renderItems = () => {
-    if (query.length <= 2) {
-      return [];
+  useEffect(() => {
+    setDisplayedCourses(initialCourses);
+    setHasMore(true);
+  }, [initialCourses]);
+
+  const loadMoreCourses = useCallback(() => {
+    const currentLength = displayedCourses.length;
+    const newCourses = courses.slice(currentLength, currentLength + 10);
+
+    if (newCourses.length === 0) {
+      setHasMore(false);
+    } else {
+      setDisplayedCourses((prevCourses) => [...prevCourses, ...newCourses]);
     }
+  }, [displayedCourses, courses]);
 
-    return data
-      ? data.pages.flatMap((page) =>
-          page.map((course) => <CourseCard key={course._id} course={course} />)
-        )
-      : [];
-  };
+  const loaderRef = useRef(null);
+
+  useIntersectionObserver(loaderRef, loadMoreCourses);
+
+  if (displayedCourses.length === 0) {
+    return;
+  }
 
   return (
-    <>
-      <Stack spacing={2}>{renderItems()}</Stack>
-      {isLoading ? (
-        <CircularProgress />
+    <Box>
+      <Stack spacing={2}>
+        {displayedCourses.map((course) => (
+          <CourseCard key={course._id} course={course} />
+        ))}
+      </Stack>
+      {hasMore ? (
+        <div ref={loaderRef}></div>
       ) : (
-        isFetchingNextPage && (
-          <Box textAlign="center" my={2}>
-            Loading more...
-          </Box>
-        )
+        <Typography variant="subtitle1" align="center" marginTop={2}>
+          You have reached the bottom
+        </Typography>
       )}
-    </>
+    </Box>
   );
 }
 

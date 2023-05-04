@@ -8,7 +8,7 @@ export async function fetchCoursesByQuery(query, searchInDescription = false) {
     searchInDescription,
   };
 
-  console.log(body);
+  console.log("body in fetchCoursesByQuery", body);
 
   try {
     const response = await axios.post(`${API_URL}/courses/search`, body);
